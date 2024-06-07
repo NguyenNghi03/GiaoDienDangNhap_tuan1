@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image, Button, Pressable, TextInput, ImageBackground } from 'react-native'
+import { View, Text, ScrollView, Image, Button, Pressable, TextInput, ImageBackground, TouchableOpacity } from 'react-native'
 import React from 'react'
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Ionicons, Feather, MaterialIcons, FontAwesome6, AntDesign } from '@expo/vector-icons';
@@ -54,19 +54,22 @@ export default function Home({ navigation }) {
 
                         </View>
 
-                        <View className="ml-2">
-                            <View className="w-20 h-20 bg-red-200 opacity-90 flex rounded-full  mt-3 items-center justify-center">
-                                <View className="w-16 h-16 bg-red-600 opacity-90 flex rounded-full  items-center justify-center">
 
-                                    <MaterialIcons name="manage-search" size={33} color="white" />
+                        <TouchableOpacity onPress={() => navigation.navigate('Renderbuilding')}>
+                            <View className="ml-2">
+                                <View className="w-20 h-20 bg-red-200 opacity-90 flex rounded-full  mt-3 items-center justify-center">
+                                    <View className="w-16 h-16 bg-red-600 opacity-90 flex rounded-full  items-center justify-center">
+
+                                        <MaterialIcons name="manage-search" size={33} color="white" />
+                                    </View>
                                 </View>
-                            </View>
-                            <View className="justify-center items-center mt-2">
-                                <Text className="">Khám phá</Text>
-                            </View>
+                                <View
+                                    className="justify-center items-center mt-2">
+                                    <Text onPress={() => { navigation.navigate("Renderbuilding") }} className="">Khám phá</Text>
+                                </View>
 
-                        </View>
-
+                            </View>
+                        </TouchableOpacity>
                         <View className="ml-2">
                             <View className="w-20 h-20 bg-red-200 opacity-90 flex rounded-full  mt-3 items-center justify-center">
                                 <View className="w-16 h-16 bg-red-600 opacity-90 flex rounded-full  items-center justify-center">
@@ -151,12 +154,15 @@ export default function Home({ navigation }) {
                             <View className="justify-center items-center">
                                 <Image className="ml-7" source={require("../img/Rectangle 2469.png")} />
 
-                                <View className="ml-10 -mt-20">
+                                <View
+
+                                    className="ml-10 -mt-20 ">
                                     <Text className="text-white text-xl font-bold">Studio</Text>
-                                    <Text className="text-white -ml-1 text-base	">Khám phá</Text>
+                                    <Text
+                                        className="text-white -ml-1 text-base	">Khám phá</Text>
                                 </View>
                             </View>
-                            
+
                             <View className="justify-center items-center -ml-5">
                                 <Image className="ml-7" source={require("../img/Rectangle 2469 (1).png")} />
 

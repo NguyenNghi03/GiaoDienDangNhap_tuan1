@@ -6,10 +6,11 @@ import REGISTER_SDT from './src/view/REGISTER_SDT';
 import REGISTER_NAME from './src/view/REGISTER_NAME';
 import REGISTER_MAIL from './src/view/REGISTER_MAIL';
 import REGISTER_PASSWORD from './src/view/REGISTER_PASSWORD';
+import Renderbuilding from './src/view/Renderbuilding';
 import Home from './src/view/Home';
 import Chat from './src/view/Chat';
 import Favorite from './src/view/Favorite';
-import Profile from './src/view/Profile'
+import Profile from './src/view/Profile';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { View, Text, Image } from "react-native";
 
@@ -140,6 +141,7 @@ export default function App() {
         <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="Favorite" component={Favorite} />
         <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Renderbuilding" component={Renderbuilding} />
       </Stack.Navigator>
     </NavigationContainer>
   );
