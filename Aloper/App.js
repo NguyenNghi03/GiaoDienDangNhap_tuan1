@@ -11,6 +11,8 @@ import Home from './src/view/Home';
 import Chat from './src/view/Chat';
 import Favorite from './src/view/Favorite';
 import Profile from './src/view/Profile';
+import List_House from './src/view/List_House';
+import Detail_House from './src/view/Detail_House';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { View, Text, Image } from "react-native";
 
@@ -142,6 +144,8 @@ export default function App() {
         <Stack.Screen name="Favorite" component={Favorite} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Renderbuilding" component={Renderbuilding} />
+        <Stack.Screen name="List_House" component={List_House} />
+        <Stack.Screen name="Detail_House" component={Detail_House} />
       </Stack.Navigator>
     </NavigationContainer>
   );

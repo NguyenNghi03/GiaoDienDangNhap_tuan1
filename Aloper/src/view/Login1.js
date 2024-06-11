@@ -49,7 +49,7 @@ export default function Login1({ navigation }) {
     
         try {
             const response = await axios.post(
-                "http://14.225.198.48:8080/api/Accounts/sign-in",
+                "http://14.225.254.188:8080/api/Accounts/sign-in",
                 data,
                 {
                     headers: { "Content-type": "application/json" },
@@ -60,6 +60,7 @@ export default function Login1({ navigation }) {
             await viewToken();
             // Thông báo thành công
             Alert.alert("Success", "Đăng nhập thành công");
+            // console.log(response.data.token);
             navigation.navigate("Home");
         } catch (error) {
             console.log(error);

@@ -1,8 +1,83 @@
-import { View, Text, ScrollView, Image, Button, Pressable, TextInput, ImageBackground, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, ScrollView, Image, Button, Pressable, TextInput, ImageBackground, TouchableOpacity, FlatList } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Ionicons, Feather, MaterialIcons, FontAwesome6, AntDesign } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export default function Home({ navigation }) {
+    const [user, setUser] = useState([]);
+    const [room, setRoom] = useState([]);
+
+
+    useEffect(() => {
+        console.log('Fetched rooms...');
+        fetchProfile();
+        fetchRooms();
+    }, []);
+    const fetchProfile = async () => {
+        try {
+            const token = await AsyncStorage.getItem('token');
+            if (!token) {
+                console.error('Token is not available');
+                return;
+            }
+
+            const response = await fetch('http://14.225.254.188:8080/api/Accounts/get-profile', {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            setUser(data.response);
+            // console.log('Fetched user:', data);
+        } catch (error) {
+            if (error instanceof Error && error.message.includes('403')) {
+                console.error('Unauthorized access. Please check your token.');
+            } else {
+                console.error('An unexpected error occurred.');
+            }
+        }
+    };
+
+    const fetchRooms = async (quantity) => {
+        try {
+            const token = await AsyncStorage.getItem('token');
+            if (!token) {
+                console.error('Token is not available');
+                return;
+            }
+
+            const response = await fetch("http://14.225.254.188:8080/api/Rooms/filter-room-of-house", {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                }
+
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            setRoom(data.response);
+            console.log('Fetched rooms:', data);
+        } catch (error) {
+            if (error instanceof Error && error.message.includes('403')) {
+                console.error('Unauthorized access. Please check your token.');
+            } else {
+                console.error('An unexpected error occurred.');
+            }
+        }
+    };
+
     return (
         <ScrollView >
             <ImageBackground className="w-full h-screen" source={require("../img/Background.png")} >
@@ -12,7 +87,7 @@ export default function Home({ navigation }) {
                         <Image className="w-16 h-16 mt-16" source={require("../img/Ellipse 149.png")} />
                         <View className="flex-col mt-16 ml-3">
                             <Text className="text-white text-base" >Xin Chào</Text>
-                            <Text className="text-white text-xl font-bold">Trần Thị Thu Sương</Text>
+                            <Text className="text-white text-xl font-bold">{user.fullName}</Text>
                         </View>
                         <View className="w-14 h-14 bg-gray-500 mt-16 opacity-90 flex rounded-full ml-8 justify-center items-center">
                             <Ionicons name="notifications" size={24} color="white" />
@@ -104,15 +179,40 @@ export default function Home({ navigation }) {
                     <View className="absolute bottom-0 left-0 w-full h-4/5	 bg-white ">
                         <View className="flex-row mt-5">
                             <Text className="ml-7 font-bold text-base">Gợi ý cho bạn</Text>
-                            <Text className="text-red-600 ml-44">Xem thêm</Text>
+                            <Pressable onPress={() => { navigation.navigate("List_House") }}>
+                                <Text className="text-red-600 ml-44">Xem thêm</Text>
+                            </Pressable>
                         </View>
                         <View>
                             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                                <View className="mt-4 ml-7">
+                                <FlatList
+                                    data={room}
+                                    numColumns={11}
+                                    renderItem={({ item }) => (
+                                        <View className="p-4 bg-white mb-2 rounded-lg shadow mt-4 ml-7">
+                                            <View className="flex-row">
+                                                <Image
+                                                    source={require("../img/Rectangle 2464.png")}
+                                                ></Image>
+
+                                                <View className="-ml-16 mt-2 w-12 h-12 bg-gray-300 opacity-90 flex rounded-full items-center justify-center">
+                                                    <AntDesign name="hearto" size={24} color="white" />
+                                                </View>
+                                            </View>
+
+                                            <Text className="text-base text-gray-500" >{item.codeRoom ? item.codeRoom : "null"}</Text>
+                                            <Text className="text-base text-green-500 mt-1" >{item.rentPrice ? item.rentPrice : "null"}</Text>
+                                        </View>
+                                    )}
+                                >
+                                </FlatList>
+                                {/* <View className="mt-4 ml-7">
                                     <View className="flex-row">
                                         <Image
-                                            source={require("../img/Rectangle 2464.png")}
+                                            source={room.image}
                                         ></Image>
+
+
 
                                         <View className="-ml-16 mt-2 w-12 h-12 bg-gray-300 opacity-90 flex rounded-full items-center justify-center">
                                             <AntDesign name="hearto" size={24} color="white" />
@@ -120,18 +220,19 @@ export default function Home({ navigation }) {
                                     </View>
 
                                     <Text className="mt-2 text-base">
-                                        Nhà trọ Lê Hoàng Phái
+                                        {room.codeRoom ? room.codeRoom : "null"}
                                     </Text>
 
+
                                     <Text className="text-red-700 font-bold text-base">
-                                        5 triệu/tháng
+                                        {room.rentPrice ? room.rentPrice : "null"}
                                     </Text>
                                 </View>
 
                                 <View className="mt-4 ml-10">
                                     <View className="flex-row">
                                         <Image
-                                            source={require("../img/Rectangle 2464 (1).png")}
+                                            source={room.image}
                                         ></Image>
 
                                         <View className="-ml-16 mt-2 w-12 h-12 bg-gray-300 opacity-90 flex rounded-full items-center justify-center">
@@ -140,13 +241,13 @@ export default function Home({ navigation }) {
                                     </View>
 
                                     <Text className="mt-2 text-base">
-                                        Nhà trọ Lê Hoàng Phái
+                                        {room.codeRoom ? room.codeRoom : "null"}
                                     </Text>
 
                                     <Text className="text-red-700 font-bold text-base">
-                                        5 triệu/tháng
+                                        {room.rentPrice ? room.rentPrice : "null"}
                                     </Text>
-                                </View>
+                                </View> */}
                             </ScrollView>
                         </View>
 
