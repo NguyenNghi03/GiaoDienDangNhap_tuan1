@@ -30,6 +30,11 @@ target 'Aloper' do
     :privacy_file_aggregation_enabled => podfile_properties['apple.privacyManifestAggregationEnabled'] == 'true',
   )
 
+  pod 'RNCPushNotificationIOS', :path => '../node_modules/@react-native-community/push-notification-ios'
+
+  # other pods
+end
+
   post_install do |installer|
     react_native_post_install(
       installer,

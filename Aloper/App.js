@@ -13,6 +13,8 @@ import Favorite from './src/view/Favorite';
 import Profile from './src/view/Profile';
 import List_House from './src/view/List_House';
 import Detail_House from './src/view/Detail_House';
+import Contract from './src/view/Contract';
+import Signature from './src/view/Signature';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { View, Text, Image } from "react-native";
 
@@ -146,6 +148,8 @@ export default function App() {
         <Stack.Screen name="Renderbuilding" component={Renderbuilding} />
         <Stack.Screen name="List_House" component={List_House} />
         <Stack.Screen name="Detail_House" component={Detail_House} />
+        <Stack.Screen name="Contract" component={Contract} />
+        <Stack.Screen name="Signature" component={Signature} />
       </Stack.Navigator>
     </NavigationContainer>
   );

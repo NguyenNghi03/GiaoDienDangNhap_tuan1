@@ -22,7 +22,7 @@ export default function Home({ navigation }) {
                 return;
             }
 
-            const response = await fetch('http://14.225.254.188:8080/api/Accounts/get-profile', {
+            const response = await fetch('http://14.225.254.188:8080/api/v1/Accounts/get-profile', {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -53,7 +53,7 @@ export default function Home({ navigation }) {
                 return;
             }
 
-            const response = await fetch("http://14.225.254.188:8080/api/Rooms/filter-room-of-house", {
+            const response = await fetch("http://14.225.254.188:8080/api/v1/Rooms/filter-room-of-house", {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -158,7 +158,7 @@ export default function Home({ navigation }) {
 
                         </View>
 
-                        <View className="ml-2">
+                        <Pressable onPress={() => {navigation.navigate("Signature")}} className="ml-2">
                             <View className="w-20 h-20 bg-red-200 opacity-90 flex rounded-full  mt-3 items-center justify-center">
                                 <View className="w-16 h-16 bg-red-600 opacity-90 flex rounded-full  items-center justify-center">
 
@@ -169,7 +169,7 @@ export default function Home({ navigation }) {
                                 <Text className="">Hợp đồng</Text>
                             </View>
 
-                        </View>
+                        </Pressable>
 
                     </View>
 
@@ -187,7 +187,7 @@ export default function Home({ navigation }) {
                             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                                 <FlatList
                                     data={room}
-                                    numColumns={11}
+                                    numColumns={15}
                                     renderItem={({ item }) => (
                                         <View className="p-4 bg-white mb-2 rounded-lg shadow mt-4 ml-7">
                                             <View className="flex-row">
@@ -200,8 +200,8 @@ export default function Home({ navigation }) {
                                                 </View>
                                             </View>
 
-                                            <Text className="text-base text-gray-500" >{item.codeRoom ? item.codeRoom : "null"}</Text>
-                                            <Text className="text-base text-green-500 mt-1" >{item.rentPrice ? item.rentPrice : "null"}</Text>
+                                            <Text className="text-base text-gray-500 w-72" >{item.address ? item.address : "null"}</Text>
+                                            <Text className="text-base text-green-500 mt-1" >{item.price ? item.price : "null"}</Text>
                                         </View>
                                     )}
                                 >

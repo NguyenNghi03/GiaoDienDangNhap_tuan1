@@ -23,7 +23,7 @@ export default function List_House({ navigation }) {
 
             console.log('Token retrieved:', token);
 
-            const response = await fetch("http://14.225.254.188:8080/api/Rooms/get-rooms-of-house/1", {
+            const response = await fetch("http://14.225.254.188:8080/api/v1/Rooms/get-rooms-of-house/1", {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`,

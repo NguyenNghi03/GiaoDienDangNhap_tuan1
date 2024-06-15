@@ -49,7 +49,7 @@ export default function Login1({ navigation }) {
     
         try {
             const response = await axios.post(
-                "http://14.225.254.188:8080/api/Accounts/sign-in",
+                "http://14.225.254.188:8080/api/v1/Accounts/sign-in",
                 data,
                 {
                     headers: { "Content-type": "application/json" },

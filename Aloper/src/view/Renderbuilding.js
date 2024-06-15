@@ -22,7 +22,7 @@ export default function RenderBuilding({ navigation }) {
                 return null;
             }
 
-            const response = await fetch('http://14.225.254.188:8080/api/Accounts/refresh-token', {
+            const response = await fetch('http://14.225.254.188:8080/api/v1/Accounts/refresh-token', {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${refreshToken}`,
@@ -49,7 +49,7 @@ export default function RenderBuilding({ navigation }) {
                 return;
             }
 
-            const response = await fetch('http://14.225.254.188:8080/api/Houses/get-all-houses-for-user', {
+            const response = await fetch('http://14.225.254.188:8080/api/v1/Houses/get-all-houses-for-user', {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -82,6 +82,8 @@ export default function RenderBuilding({ navigation }) {
                 <Pressable onPress={() => navigation.goBack()}><Ionicons name="return-down-back" size={32} color="white" /></Pressable>
                 <Text className="text-white text-3xl font-bold ml-1 mt-4">Khám phá</Text>
             </View>
+
+
             <View className="absolute bottom-0 left-0 w-full h-3/4 bg-slate-50">
                 <View className="items-center -mt-8 shadow-lg">
                     <View className="items-center justify-center w-11/12 border-white border-2 rounded-2xl h-14 text-1.5xl p-3 bg-white flex-row">
@@ -95,7 +97,14 @@ export default function RenderBuilding({ navigation }) {
                             <Feather name="search" size={33} color="#A0AEC0" />
                         </View>
                     </View>
+                   
                 </View>
+
+
+
+
+
+
                 <FlatList
                     data={filteredHouses}
                     renderItem={({ item }) => (

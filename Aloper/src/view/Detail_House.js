@@ -23,7 +23,7 @@ export default function Detail_House({ route, navigation }) {
 
             console.log('Token retrieved:', token);
 
-            const response = await fetch(`http://14.225.254.188:8080/api/Rooms/get-room-details/${roomId}`, {
+            const response = await fetch(`http://14.225.254.188:8080/api/v1/Rooms/get-room-details/${roomId}`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -67,7 +67,7 @@ export default function Detail_House({ route, navigation }) {
                     data={detailroom1}
                     renderItem={({ item }) => (
                         <View className=" mb-2 rounded-lg shadow">
-                            <Image className="w-full h-96" source={{ uri: `http://14.225.254.188:8080/ImageRoom/${item.image}.jpg` }} />
+                            <Image className="w-full h-96" source={{ uri: `http://14.225.254.188:8080/v1/ImageRoom/${item.image}.jpg` }} />
                             <Text className="text-lg font-bold">{item.roomCode || "null"}</Text>
                             <Text className="text-lg font-bold">{item.roomId || "null"}</Text>
                             <Text className="text-lg font-bold">{item.rentPrice || "null"}</Text>
